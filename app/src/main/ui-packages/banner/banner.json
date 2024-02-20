@@ -1,0 +1,176 @@
+{
+  "name": "banner",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "PN9nyTsZyAY8h2ksnGA3EZ",
+    "node": "93:335",
+    "version": "5168599468",
+    "component-id": "52f4934c08e19a0b6e84505128f4ac67294662a1"
+  },
+  "default": "Banner",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "image",
+        "id": "Rectangle 1"
+      },
+      {
+        "type": "text",
+        "id": "Inicio"
+      },
+      {
+        "type": "text",
+        "id": "Marcas"
+      }
+    ],
+    "modes": {
+      "Banner": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": false,
+            "children": [
+              "Rectangle 1",
+              "Inicio",
+              "Marcas"
+            ],
+            "background-color": {
+              "alpha": 0.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            }
+          },
+          {
+            "id": "Rectangle 1",
+            "border-radius": 100.0,
+            "alignment": {
+              "horizontal": {
+                "attachment": "end",
+                "offset": -9.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 16.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 48.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 44.0
+              }
+            },
+            "image-content": "$FotoLogo",
+            "scale": "cover"
+          },
+          {
+            "id": "Inicio",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 16.0
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": 24.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 112.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 64.0
+              }
+            },
+            "font-weight": 800.0,
+            "text-content": "$TextoLugar",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 24.0,
+            "line-height": 1.2102272510528564,
+            "typeface": "Inter"
+          },
+          {
+            "id": "Marcas",
+            "alignment": {
+              "horizontal": {
+                "attachment": "start",
+                "offset": 16.0
+              },
+              "vertical": {
+                "attachment": "center",
+                "offset": 27.0
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": 137.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 21.0
+              }
+            },
+            "font-weight": 800.0,
+            "text-content": "$TextoMarca",
+            "overflow": "visible",
+            "max-lines": -1,
+            "text-align": "left",
+            "text-size": 15.0,
+            "line-height": 1.2102272033691406,
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "FotoLogo": {
+      "data-type": "image",
+      "required": false,
+      "description": ""
+    },
+    "TextoLugar": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    },
+    "TextoMarca": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "Banner",
+      "size": {
+        "width": 360.0,
+        "height": 117.0
+      },
+      "parameters": {
+        "FotoLogo": "rectangle_1.jpeg",
+        "TextoLugar": "Inicio",
+        "TextoMarca": "Marcas"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

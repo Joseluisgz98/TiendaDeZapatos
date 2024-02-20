@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "449136888865",
+    "project_id": "tiendadezapatos-f024f",
+    "storage_bucket": "tiendadezapatos-f024f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449136888865:android:f3565e2dea4efb92512760",
+        "android_client_info": {
+          "package_name": "com.example.tiendadezapatos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo4gZLJ3rXkECpp8jdT0pgB2Q13z2B1yc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
