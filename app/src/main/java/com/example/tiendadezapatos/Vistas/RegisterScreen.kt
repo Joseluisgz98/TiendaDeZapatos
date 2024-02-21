@@ -21,13 +21,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.LoginViewModel
 import com.example.tiendadezapatos.banner.Banner
 
 
 @Composable
-fun Register(loginVM:LoginViewModel){
+fun Register(loginVM:LoginViewModel,navController: NavController){
     Scaffold(
         topBar = {
             Banner(
@@ -45,7 +46,7 @@ fun Register(loginVM:LoginViewModel){
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(36.dp),
         ) {
             OutlinedTextField(
                 value = loginVM.userName,
@@ -81,7 +82,7 @@ fun Register(loginVM:LoginViewModel){
 
             Button(
                 onClick = {
-                    loginVM.createUser {  }
+                    loginVM.createUser { navController.navigate("Login") }
 
                 }, modifier = Modifier
                     .fillMaxWidth()

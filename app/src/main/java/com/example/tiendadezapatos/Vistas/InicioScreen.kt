@@ -12,12 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.banner.Banner
 
 @Composable
-@Preview
-fun Inicio(){
+fun Inicio(navController: NavController){
     Scaffold(
         topBar = {
             Banner(
