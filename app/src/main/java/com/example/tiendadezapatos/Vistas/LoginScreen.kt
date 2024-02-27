@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -50,7 +52,23 @@ fun Login(loginVM:LoginViewModel,navController: NavController){
             )
         },
         bottomBar = {
-
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(onClick = { navController.navigate("Inicio") }) {
+                    Icon(painterResource(id = R.drawable.home), contentDescription = null,modifier = Modifier.size(40.dp))
+                }
+                IconButton(onClick = { navController.navigate("ruta2") }) {
+                    Icon(painterResource(id = R.drawable.compragris), contentDescription = null,modifier = Modifier.size(40.dp))
+                }
+                IconButton(onClick = { navController.navigate("ruta3") }) {
+                    Icon(painterResource(id = R.drawable.favoritogris), contentDescription = null,modifier = Modifier.size(40.dp))
+                }
+                IconButton(onClick = { navController.navigate("Login") }) {
+                    Icon(painterResource(id = R.drawable.login), contentDescription = null,modifier = Modifier.size(40.dp))
+                }
+            }
         },
 
         ) { innerPadding ->
