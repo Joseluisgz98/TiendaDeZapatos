@@ -21,8 +21,6 @@ class LoginViewModel:ViewModel(){
     private val auth:FirebaseAuth = Firebase.auth
     private val firestore = Firebase.firestore
 
-    var showAlert by mutableStateOf(false)
-        private set
     var email by mutableStateOf("")
         private set
     var password by mutableStateOf("")
@@ -41,7 +39,7 @@ class LoginViewModel:ViewModel(){
                             onSuccess()
                         } else {
                             Log.d("ERROR EN FIREBASE","Usuario y/o contrasena incorrectos")
-                            showAlert = true
+
                         }
                     }
             } catch (e: Exception){
@@ -62,7 +60,7 @@ class LoginViewModel:ViewModel(){
                             onSuccess()
                         } else {
                             Log.d("ERROR EN FIREBASE","Error al crear usuario")
-                            showAlert = true
+
                         }
                     }
             } catch (e: Exception){
