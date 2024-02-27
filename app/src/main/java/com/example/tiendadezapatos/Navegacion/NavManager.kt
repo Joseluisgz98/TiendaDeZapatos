@@ -6,9 +6,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tiendadezapatos.ViewModels.LoginViewModel
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
+import com.example.tiendadezapatos.Vistas.Favorito
 import com.example.tiendadezapatos.Vistas.Inicio
 import com.example.tiendadezapatos.Vistas.Login
 import com.example.tiendadezapatos.Vistas.Register
+import com.example.tiendadezapatos.Vistas.Tienda
 
 @Composable
 fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel){
@@ -24,6 +26,12 @@ fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel){
         }
         composable("Inicio"){
             Inicio(navController,zapatosVM)
+        }
+        composable("Favorite"){
+            Favorito(navController, zapatosVM)
+        }
+        composable("Shop"){
+            Tienda(navController , zapatosVM )
         }
     }
 

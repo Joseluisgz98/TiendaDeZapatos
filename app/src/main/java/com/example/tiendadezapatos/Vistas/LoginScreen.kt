@@ -1,6 +1,7 @@
 package com.example.tiendadezapatos.Vistas
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -59,14 +60,14 @@ fun Login(loginVM:LoginViewModel,navController: NavController){
                 IconButton(onClick = { navController.navigate("Inicio") }) {
                     Icon(painterResource(id = R.drawable.home), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
-                IconButton(onClick = { navController.navigate("ruta2") }) {
+                IconButton(onClick = { navController.navigate("Shop") }) {
                     Icon(painterResource(id = R.drawable.compragris), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
-                IconButton(onClick = { navController.navigate("ruta3") }) {
+                IconButton(onClick = { navController.navigate("Favorite") }) {
                     Icon(painterResource(id = R.drawable.favoritogris), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
                 IconButton(onClick = { navController.navigate("Login") }) {
-                    Icon(painterResource(id = R.drawable.login), contentDescription = null,modifier = Modifier.size(40.dp))
+                    Icon(painterResource(id = R.drawable.login), contentDescription = null,modifier = Modifier.size(40.dp).background(color = Color(0,166,118,100)))
                 }
             }
         },

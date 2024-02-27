@@ -16,22 +16,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.banner.Banner
 
+
 @Composable
-fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
+fun Favorito(navController: NavController, zapatosVM: ZapatosViewModel){
     Scaffold(
         topBar = {
             Banner(
                 modifier = Modifier.fillMaxWidth()
                     .height(150.dp),
                 fotoLogo = painterResource(R.drawable.logotienda),
-                textoLugar = "Inicio",
+                textoLugar = "Favoritos",
                 textoMarca = "Marcas"
             )
         },
@@ -41,13 +41,13 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                 modifier = Modifier.fillMaxWidth()
             ) {
                 IconButton(onClick = { navController.navigate("Inicio") }) {
-                    Icon(painterResource(id = R.drawable.home), contentDescription = null,modifier = Modifier.size(40.dp).background(color = Color(0,166,118,100)))
+                    Icon(painterResource(id = R.drawable.home), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
                 IconButton(onClick = { navController.navigate("Shop") }) {
                     Icon(painterResource(id = R.drawable.compragris), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
                 IconButton(onClick = { navController.navigate("Favorite") }) {
-                    Icon(painterResource(id = R.drawable.favoritogris), contentDescription = null,modifier = Modifier.size(40.dp))
+                    Icon(painterResource(id = R.drawable.favoritogris), contentDescription = null,modifier = Modifier.size(40.dp).background(color = Color(0,166,118,100)))
                 }
                 IconButton(onClick = { navController.navigate("Login") }) {
                     Icon(painterResource(id = R.drawable.login), contentDescription = null,modifier = Modifier.size(40.dp))
