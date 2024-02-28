@@ -5,5 +5,5 @@ data class ZapatillaModel(
     val imagen:String = "",
     val marca:String = "",
     val nombre:String = "",
-    val precio:Number = 0
+    val precio:String = ""
 )

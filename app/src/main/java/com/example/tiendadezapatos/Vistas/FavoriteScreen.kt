@@ -1,13 +1,18 @@
 package com.example.tiendadezapatos.Vistas
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -15,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,7 +30,7 @@ import com.example.tiendadezapatos.banner.Banner
 
 
 @Composable
-fun Favorito(navController: NavController, zapatosVM: ZapatosViewModel){
+fun Favorito(navController: NavController){
     Scaffold(
         topBar = {
             Banner(
@@ -61,17 +67,56 @@ fun Favorito(navController: NavController, zapatosVM: ZapatosViewModel){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text =
-                """
-                    This is an example of a scaffold. It uses the Scaffold composable's parameters to create a screen with a simple top app bar, bottom app bar, and floating action button.
-
-                    It also contains some basic inner content, such as this text.
-
-                    You have pressed the floating action button  times.
-                """.trimIndent(),
-            )
+            LazyRow{
+                item{
+                    Card (modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable { }) {
+                        Image(painter = painterResource(id = R.drawable.imagenadidas), contentDescription = null,contentScale = ContentScale.Crop,modifier = Modifier.fillMaxSize() )
+                    }
+                }
+                item{
+                    Card (modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable { }) {
+                        Image(painter = painterResource(id = R.drawable.imagenpuma), contentDescription = null,contentScale = ContentScale.Crop,modifier = Modifier.fillMaxSize())
+                    }
+                }
+                item{
+                    Card (modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable { }) {
+                        Image(painter = painterResource(id = R.drawable.imagenvans), contentDescription = null,contentScale = ContentScale.Crop,modifier = Modifier.fillMaxSize() )
+                    }
+                }
+                item{
+                    Card (modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable { }) {
+                        Image(painter = painterResource(id = R.drawable.imagennike), contentDescription = null,contentScale = ContentScale.Crop,modifier = Modifier.fillMaxSize() )
+                    }
+                }
+                item{
+                    Card (modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable { }) {
+                        Image(painter = painterResource(id = R.drawable.imagendc), contentDescription = null,contentScale = ContentScale.Crop,modifier = Modifier.fillMaxSize() )
+                    }
+                }
+                item{
+                    Card (modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable { }) {
+                        Image(painter = painterResource(id = R.drawable.imagencovers), contentDescription = null,contentScale = ContentScale.Crop,modifier = Modifier.fillMaxSize() )
+                    }
+                }
+            }
         }
     }
 }

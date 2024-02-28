@@ -24,7 +24,7 @@ import com.example.tiendadezapatos.banner.Banner
 
 
 @Composable
-fun Tienda(navController: NavController, zapatosVM: ZapatosViewModel){
+fun Tienda(navController: NavController){
     Scaffold(
         topBar = {
             Banner(
