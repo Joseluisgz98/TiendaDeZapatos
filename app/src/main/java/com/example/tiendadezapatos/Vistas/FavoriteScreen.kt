@@ -56,7 +56,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                 IconButton(onClick = { navController.navigate("Inicio") }) {
                     Icon(painterResource(id = R.drawable.home), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
-                IconButton(onClick = { navController.navigate("Shop") }) {
+                IconButton(onClick = { navController.navigate("Shop")}) {
                     Icon(painterResource(id = R.drawable.compragris), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
                 IconButton(onClick = { navController.navigate("Favorite") }) {
@@ -158,6 +158,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
+                        //Pulsa boton all para poder refrescar y mostrar todos los all que tiene
                         .clickable { favoritoVM.devolverZapatosFavoritos() }) {
                         Image(
                             painter = painterResource(id = R.drawable.all),
