@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.tiendadezapatos.Navegacion.NavManager
+import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
 import com.example.tiendadezapatos.ViewModels.LoginViewModel
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.ui.theme.TiendaDeZapatosTheme
@@ -16,6 +17,7 @@ import com.example.tiendadezapatos.ui.theme.TiendaDeZapatosTheme
 class MainActivity : ComponentActivity() {
     val loginVM : LoginViewModel by viewModels()
     val zapatosVM : ZapatosViewModel by viewModels()
+    val favoritoVM : FavoritoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavManager(loginVM,zapatosVM)
+                    NavManager(loginVM,zapatosVM,favoritoVM)
                 }
             }
         }

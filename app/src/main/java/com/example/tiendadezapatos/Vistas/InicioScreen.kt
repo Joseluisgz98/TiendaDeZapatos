@@ -185,15 +185,18 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
 
             }
             LazyVerticalGrid(GridCells.Fixed(2),) {
-                items(shoesData) { shoe ->
-                  ShoeCard(shoe = shoe)
+                items(shoesData) { zapato ->
+                    TarjetaCarta(zapato)
                 }
-
-
             }
         }
     }
 }
+
+/**
+ * Funcion para pasar una url para transformarlo en una imagen
+ * @param url es la url que coge de firebase
+ */
 @Composable
 fun ImageFromUrl(url: String) {
     val image = rememberImagePainter(data = url)
@@ -203,8 +206,13 @@ fun ImageFromUrl(url: String) {
         modifier = Modifier.size(110.dp)
     )
 }
+
+/**
+ * Funcion la cual crea cada tarjeta de los zapatos
+ * @param zapato pasa el objeto zapato el cual tienes los valores que tendra la tarjeta
+ */
 @Composable
-fun ShoeCard(shoe: ZapatillaModel) {
+fun TarjetaCarta(zapato: ZapatillaModel) {
     val isFavorite = remember { mutableStateOf(false) }
 
     Card(
@@ -222,7 +230,7 @@ fun ShoeCard(shoe: ZapatillaModel) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                ImageFromUrl(url = shoe.imagen)
+                ImageFromUrl(url = zapato.imagen)
                 IconButton(onClick = { isFavorite.value = !isFavorite.value }) {
                     Icon(
                         imageVector = Icons.Filled.Favorite,
@@ -232,14 +240,14 @@ fun ShoeCard(shoe: ZapatillaModel) {
                 }
             }
             Text(text = buildAnnotatedString {
-                append(shoe.nombre)
+                append(zapato.nombre)
                 withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline, color = Color(0,166,118))) {
-                    append(" ${shoe.precio} €")
+                    append(" ${zapato.precio} €")
                 }
             }, style = MaterialTheme.typography.titleLarge)
             Spacer(modifier = Modifier.height(8.dp))
             Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { /*TODO: Handle buy click*/ },modifier = Modifier
+            Button(onClick = { /*Futuro boton para añadir al carrito*/ },modifier = Modifier
                 .fillMaxWidth(),colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))) {
                 Text(text = "Comprar")
             }
