@@ -9,25 +9,28 @@ import com.google.firebase.firestore.FirebaseFirestore
 class ZapatosViewModel: ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val shoesRef = db.collection("Zapatos")
-    val shoesData = MutableLiveData<List<ZapatillaModel>>(listOf())
+    val datosZapatos = MutableLiveData<List<ZapatillaModel>>(listOf())
+
+
 
 
     init {
-        getShoesData()
+        mostrarTodos()
     }
-    private fun getShoesData() {
+    fun mostrarTodos() {
         shoesRef.get().addOnSuccessListener { documents ->
-            shoesData.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }
+            datosZapatos.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }
         }
     }
+
+    /**
+     * Funcion para poder filtrar por marcas
+     */
     fun filtrarPorMarca(marca: String) {
         shoesRef.get().addOnSuccessListener { documents ->
-            shoesData.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }.filter { it.marca == marca }
+            datosZapatos.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }.filter { it.marca == marca }
         }
     }
-    fun mostrarTodos(){
-        shoesRef.get().addOnSuccessListener { documents ->
-            shoesData.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }
-        }
-    }
+
+
 }

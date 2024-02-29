@@ -50,7 +50,7 @@ import com.example.tiendadezapatos.model.ZapatillaModel
 
 @Composable
 fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
-    val shoesData by zapatosVM.shoesData.observeAsState(listOf())
+    val datosZapatos by zapatosVM.datosZapatos.observeAsState(listOf())
     Scaffold(
         topBar = {
             Banner(
@@ -185,7 +185,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
 
             }
             LazyVerticalGrid(GridCells.Fixed(2),) {
-                items(shoesData) { zapato ->
+                items(datosZapatos) { zapato ->
                     TarjetaCarta(zapato)
                 }
             }
