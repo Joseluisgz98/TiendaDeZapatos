@@ -46,10 +46,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import coil.compose.rememberImagePainter
+import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
 import com.example.tiendadezapatos.model.ZapatillaModel
 
 @Composable
-fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
+fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel,favoritoVM: FavoritoViewModel){
     val datosZapatos by zapatosVM.datosZapatos.observeAsState(listOf())
     Scaffold(
         topBar = {
@@ -186,7 +187,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
             }
             LazyVerticalGrid(GridCells.Fixed(2),) {
                 items(datosZapatos) { zapato ->
-                    TarjetaCarta(zapato)
+                    TarjetaCarta(zapato,favoritoVM)
                 }
             }
         }
@@ -212,7 +213,7 @@ fun ImageFromUrl(url: String) {
  * @param zapato pasa el objeto zapato el cual tienes los valores que tendra la tarjeta
  */
 @Composable
-fun TarjetaCarta(zapato: ZapatillaModel) {
+fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel) {
     val isFavorite = remember { mutableStateOf(false) }
 
     Card(
@@ -231,7 +232,10 @@ fun TarjetaCarta(zapato: ZapatillaModel) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ImageFromUrl(url = zapato.imagen)
-                IconButton(onClick = { isFavorite.value = !isFavorite.value }) {
+                IconButton(onClick = {
+                    isFavorite.value = !isFavorite.value
+                    favoritoVM.Guardar(zapato, isFavorite.value)
+                }) {
                     Icon(
                         imageVector = Icons.Filled.Favorite,
                         contentDescription = "Favorite",
