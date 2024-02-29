@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,7 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -33,6 +31,20 @@ import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.banner.Banner
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
+import coil.compose.rememberImagePainter
 import com.example.tiendadezapatos.model.ZapatillaModel
 
 @Composable
@@ -82,7 +94,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable { zapatosVM.filtrarPorMarca("Adidas")}) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenadidas),
                             contentDescription = null,
@@ -95,7 +107,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable { zapatosVM.filtrarPorMarca("Puma") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenpuma),
                             contentDescription = null,
@@ -108,7 +120,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable { zapatosVM.filtrarPorMarca("Vans")}) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenvans),
                             contentDescription = null,
@@ -121,7 +133,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable {zapatosVM.filtrarPorMarca("Nike") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagennike),
                             contentDescription = null,
@@ -134,7 +146,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable { zapatosVM.filtrarPorMarca("Dc") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagendc),
                             contentDescription = null,
@@ -147,7 +159,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable {zapatosVM.filtrarPorMarca("Converse") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagencovers),
                             contentDescription = null,
@@ -156,16 +168,24 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                         )
                     }
                 }
+                item {
+                    Card(modifier = Modifier
+                        .padding(8.dp)
+                        .size(71.dp, 29.dp)
+                        .clickable {zapatosVM.mostrarTodos() }) {
+                        Image(
+                            painter = painterResource(id = R.drawable.all),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                }
+
             }
             LazyColumn {
                 items(shoesData) { shoe ->
-                    Card {
-                        Column {
-                            Text(text = "Marca: ${shoe.marca}")
-                            Text(text = "Nombre: ${shoe.nombre}")
-                            Text(text = "Precio: ${shoe.precio}")
-                        }
-                    }
+                  ShoeCard(shoe = shoe)
                 }
 
 
@@ -173,5 +193,58 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
         }
     }
 }
+@Composable
+fun ImageFromUrl(url: String) {
+    val image = rememberImagePainter(data = url)
+    Image(
+        painter = image,
+        contentDescription = null,
+        modifier = Modifier.size(200.dp)
+    )
+}
+@Composable
+fun ShoeCard(shoe: ZapatillaModel) {
+    val isFavorite = remember { mutableStateOf(false) }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                ImageFromUrl(url = shoe.imagen)
+                IconButton(onClick = { isFavorite.value = !isFavorite.value }) {
+                    Icon(
+                        imageVector = Icons.Filled.Favorite,
+                        contentDescription = "Favorite",
+                        tint = if (isFavorite.value) Color(0,166,118) else Color.White
+                    )
+                }
+            }
+            Text(text = buildAnnotatedString {
+                append(shoe.nombre)
+                withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline, color = Color(0,166,118))) {
+                    append(" ${shoe.precio} €")
+                }
+            }, style = MaterialTheme.typography.titleLarge)
+            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(onClick = { /*TODO: Handle buy click*/ },modifier = Modifier
+                .fillMaxWidth(),colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))) {
+                Text(text = "Comprar")
+            }
+        }
+    }
+}
+
 
 

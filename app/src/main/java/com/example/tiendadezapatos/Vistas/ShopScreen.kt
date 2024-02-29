@@ -64,14 +64,7 @@ fun Tienda(navController: NavController){
         ) {
             Text(
                 modifier = Modifier.padding(8.dp),
-                text =
-                """
-                    This is an example of a scaffold. It uses the Scaffold composable's parameters to create a screen with a simple top app bar, bottom app bar, and floating action button.
-
-                    It also contains some basic inner content, such as this text.
-
-                    You have pressed the floating action button  times.
-                """.trimIndent(),
+                text ="Abierto Proximamente"
             )
         }
     }
