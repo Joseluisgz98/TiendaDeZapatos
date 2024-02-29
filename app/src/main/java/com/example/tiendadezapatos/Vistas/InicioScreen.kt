@@ -214,7 +214,7 @@ fun ImageFromUrl(url: String) {
  */
 @Composable
 fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel) {
-    val isFavorite = remember { mutableStateOf(false) }
+    val favorito = remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -233,13 +233,13 @@ fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel) {
             ) {
                 ImageFromUrl(url = zapato.imagen)
                 IconButton(onClick = {
-                    isFavorite.value = !isFavorite.value
-                    favoritoVM.Guardar(zapato, isFavorite.value)
+                    favorito.value = !favorito.value
+                    favoritoVM.Guardar(zapato, favorito.value)
                 }) {
                     Icon(
                         imageVector = Icons.Filled.Favorite,
-                        contentDescription = "Favorite",
-                        tint = if (isFavorite.value) Color(0,166,118) else Color.White
+                        contentDescription = "Favorito",
+                        tint = if (favorito.value) Color(0,166,118) else Color.White
                     )
                 }
             }

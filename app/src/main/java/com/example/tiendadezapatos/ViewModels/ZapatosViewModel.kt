@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ZapatosViewModel: ViewModel() {
     private val db = FirebaseFirestore.getInstance()
-    private val shoesRef = db.collection("Zapatos")
+    private val zapatoRef = db.collection("Zapatos")//Referencia para acceder a la coleccion zapatos
     val datosZapatos = MutableLiveData<List<ZapatillaModel>>(listOf())
 
 
@@ -17,20 +17,26 @@ class ZapatosViewModel: ViewModel() {
     init {
         mostrarTodos()
     }
+
+    /**
+     * muestra todos los zapatos
+     */
     fun mostrarTodos() {
-        shoesRef.get().addOnSuccessListener { documents ->
+        zapatoRef.get().addOnSuccessListener { documents ->
             datosZapatos.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }
         }
     }
 
     /**
      * Funcion para poder filtrar por marcas
+     * @param marca nombre de la marca
      */
     fun filtrarPorMarca(marca: String) {
-        shoesRef.get().addOnSuccessListener { documents ->
+        zapatoRef.get().addOnSuccessListener { documents ->
             datosZapatos.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }.filter { it.marca == marca }
         }
     }
+
 
 
 }

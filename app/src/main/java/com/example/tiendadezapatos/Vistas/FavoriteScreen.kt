@@ -74,12 +74,13 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            //Cada carta es clickable y llama la funcion para poder filtrar por la zaptilla
             LazyRow {
                 item {
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {  }) {
+                        .clickable { favoritoVM.filtrarFavoritosPorMarca("Adidas") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenadidas),
                             contentDescription = null,
@@ -92,7 +93,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {  }) {
+                        .clickable { favoritoVM.filtrarFavoritosPorMarca("Puma") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenpuma),
                             contentDescription = null,
@@ -105,7 +106,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { }) {
+                        .clickable {favoritoVM.filtrarFavoritosPorMarca("Vans") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenvans),
                             contentDescription = null,
@@ -118,7 +119,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {  }) {
+                        .clickable { favoritoVM.filtrarFavoritosPorMarca("Nike") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagennike),
                             contentDescription = null,
@@ -131,7 +132,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {  }) {
+                        .clickable { favoritoVM.filtrarFavoritosPorMarca("Dc") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagendc),
                             contentDescription = null,
@@ -144,7 +145,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {  }) {
+                        .clickable { favoritoVM.filtrarFavoritosPorMarca("Converse") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagencovers),
                             contentDescription = null,
@@ -157,7 +158,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {  }) {
+                        .clickable { favoritoVM.devolverZapatosFavoritos() }) {
                         Image(
                             painter = painterResource(id = R.drawable.all),
                             contentDescription = null,

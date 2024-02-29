@@ -16,9 +16,15 @@ class FavoritoViewModel : ViewModel(){
     init {
         devolverZapatosFavoritos()
     }
-    fun Guardar(zapato: ZapatillaModel, isFavorite: Boolean) {
+
+    /**
+     * Funcion para guardar una zapatilla en la coleccion favorito con el email del que inicio sesion
+     * @param zapato da los detalles del zapato
+     * @param favorito boleano que cuando es true guarda el zapato
+     */
+    fun Guardar(zapato: ZapatillaModel, favorito: Boolean) {
         val email = auth.currentUser?.email
-        if (isFavorite) {
+        if (favorito) {
             // Guardar el zapato como favorito
             val docData = hashMapOf(
                 "imagen" to zapato.imagen,
@@ -34,10 +40,25 @@ class FavoritoViewModel : ViewModel(){
 
         }
     }
+
+    /**
+     * Devuelce todos los zapatos que este en la coleccion favortios
+     */
     fun devolverZapatosFavoritos() {
         val email = auth.currentUser?.email
         db.collection("Usuarios").document(email.toString()).collection("favoritos").get().addOnSuccessListener { documents ->
             zapatosFavoritos.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }
+        }
+    }
+
+    /**
+     * Filtra los favoritos por las marcas
+     * @param nombre de la marca
+     */
+    fun filtrarFavoritosPorMarca(marca: String) {
+        val email = auth.currentUser?.email
+        db.collection("Usuarios").document(email.toString()).collection("favoritos").get().addOnSuccessListener { documents ->
+            zapatosFavoritos.value = documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }.filter { it.marca == marca }
         }
     }
 }
