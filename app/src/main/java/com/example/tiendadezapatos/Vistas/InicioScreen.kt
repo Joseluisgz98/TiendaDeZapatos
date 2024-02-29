@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,6 +30,9 @@ import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.banner.Banner
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -94,7 +95,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { zapatosVM.filtrarPorMarca("Adidas")}) {
+                        .clickable { zapatosVM.filtrarPorMarca("Adidas") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenadidas),
                             contentDescription = null,
@@ -120,7 +121,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable { zapatosVM.filtrarPorMarca("Vans")}) {
+                        .clickable { zapatosVM.filtrarPorMarca("Vans") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagenvans),
                             contentDescription = null,
@@ -133,7 +134,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {zapatosVM.filtrarPorMarca("Nike") }) {
+                        .clickable { zapatosVM.filtrarPorMarca("Nike") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagennike),
                             contentDescription = null,
@@ -159,7 +160,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {zapatosVM.filtrarPorMarca("Converse") }) {
+                        .clickable { zapatosVM.filtrarPorMarca("Converse") }) {
                         Image(
                             painter = painterResource(id = R.drawable.imagencovers),
                             contentDescription = null,
@@ -172,7 +173,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                     Card(modifier = Modifier
                         .padding(8.dp)
                         .size(71.dp, 29.dp)
-                        .clickable {zapatosVM.mostrarTodos() }) {
+                        .clickable { zapatosVM.mostrarTodos() }) {
                         Image(
                             painter = painterResource(id = R.drawable.all),
                             contentDescription = null,
@@ -183,7 +184,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel){
                 }
 
             }
-            LazyColumn {
+            LazyVerticalGrid(GridCells.Fixed(2),) {
                 items(shoesData) { shoe ->
                   ShoeCard(shoe = shoe)
                 }
@@ -199,7 +200,7 @@ fun ImageFromUrl(url: String) {
     Image(
         painter = image,
         contentDescription = null,
-        modifier = Modifier.size(200.dp)
+        modifier = Modifier.size(110.dp)
     )
 }
 @Composable

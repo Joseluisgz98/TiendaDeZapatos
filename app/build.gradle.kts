@@ -84,7 +84,6 @@ dependencies {
     //LiveData
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
 
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("io.coil-kt:coil-compose:1.4.0")
 
 }
