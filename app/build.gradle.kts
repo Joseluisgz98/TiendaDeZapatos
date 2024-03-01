@@ -83,7 +83,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.1")
     //LiveData
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
-
+    //Para cargar la imagen desde una url
     implementation("io.coil-kt:coil-compose:1.4.0")
 
 }
