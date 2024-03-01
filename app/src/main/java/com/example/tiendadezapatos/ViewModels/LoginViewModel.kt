@@ -55,7 +55,7 @@ class LoginViewModel:ViewModel(){
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            // DCS - Si se realiza con éxito, almacenamos el usuario en la colección "Users"
+                            // DCS - Si se realiza con éxito, almacenamos el usuario en la colección "Usuario"
                             saveUser(userName)
                             onSuccess()
                         } else {
@@ -87,7 +87,6 @@ class LoginViewModel:ViewModel(){
     }
     /**
      * Actualiza el email del usuario.
-     *
      * @param email Nuevo email a establecer.
      */
     fun changeEmail(email: String) {
@@ -96,7 +95,6 @@ class LoginViewModel:ViewModel(){
 
     /**
      * Actualiza la contraseña del usuario.
-     *
      * @param password Nueva contraseña a establecer.
      */
     fun changePassword(password: String) {
@@ -105,7 +103,6 @@ class LoginViewModel:ViewModel(){
 
     /**
      * Actualiza el nombre de usuario.
-     *
      * @param userName Nuevo nombre de usuario a establecer.
      */
     fun changeUserName(userName: String) {
