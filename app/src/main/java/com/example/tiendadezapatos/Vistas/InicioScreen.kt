@@ -76,7 +76,8 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel,favoritoVM: 
                 IconButton(onClick = { navController.navigate("Shop") }) {
                     Icon(painterResource(id = R.drawable.compragris), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
-                IconButton(onClick = { navController.navigate("Favorite") }) {
+                IconButton(onClick = { navController.navigate("Favorite")
+                favoritoVM.zapatosFavoritos}) {
                     Icon(painterResource(id = R.drawable.favoritogris), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
                 IconButton(onClick = { navController.navigate("Login") }) {
