@@ -109,4 +109,11 @@ class LoginViewModel:ViewModel(){
         this.userName = userName
     }
 
+    /**
+     * Funcion para cerrar sesion
+     */
+    fun cerrarSesion(){
+        auth.signOut()
+    }
+
 }
