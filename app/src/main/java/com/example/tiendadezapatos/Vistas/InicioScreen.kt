@@ -46,11 +46,12 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import coil.compose.rememberImagePainter
+import com.example.tiendadezapatos.ViewModels.CompraViewModel
 import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
 import com.example.tiendadezapatos.model.ZapatillaModel
 
 @Composable
-fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel,favoritoVM: FavoritoViewModel){
+fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel,favoritoVM: FavoritoViewModel,compraViewModel: CompraViewModel){
     val datosZapatos by zapatosVM.datosZapatos.observeAsState(listOf())
     Scaffold(
         topBar = {
@@ -188,7 +189,7 @@ fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel,favoritoVM: 
             }
             LazyVerticalGrid(GridCells.Fixed(2),) {
                 items(datosZapatos) { zapato ->
-                    TarjetaCarta(zapato,favoritoVM)
+                    TarjetaCarta(zapato,favoritoVM,compraViewModel)
                 }
             }
         }
@@ -214,7 +215,7 @@ fun ImageFromUrl(url: String) {
  * @param zapato pasa el objeto zapato el cual tienes los valores que tendra la tarjeta
  */
 @Composable
-fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel) {
+fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel,compraViewModel: CompraViewModel) {
     val favorito = remember { mutableStateOf(false) }
 
     Card(
@@ -252,7 +253,7 @@ fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel) {
             }, style = MaterialTheme.typography.titleLarge)
             Spacer(modifier = Modifier.height(8.dp))
             Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { /*Futuro boton para añadir al carrito*/ },modifier = Modifier
+            Button(onClick = { compraViewModel.comprarZapato(zapato) },modifier = Modifier
                 .fillMaxWidth(),colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))) {
                 Text(text = "Comprar")
             }
