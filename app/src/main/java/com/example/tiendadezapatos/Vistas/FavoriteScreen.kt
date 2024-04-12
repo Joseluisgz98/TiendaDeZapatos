@@ -30,13 +30,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
+import com.example.tiendadezapatos.ViewModels.CompraViewModel
 import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.banner.Banner
 
 
 @Composable
-fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
+fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel,compraViewModel: CompraViewModel){
     val zapatosFavoritos by favoritoVM.zapatosFavoritos.observeAsState(listOf())
     Scaffold(
         topBar = {
@@ -173,7 +174,7 @@ fun Favorito(navController: NavController,favoritoVM: FavoritoViewModel){
             }
             LazyVerticalGrid(GridCells.Fixed(2),) {
                 items(zapatosFavoritos) { zapato ->
-                    TarjetaCarta(zapato,favoritoVM)
+                    TarjetaCarta(zapato,favoritoVM, compraViewModel)
                 }
             }
         }
