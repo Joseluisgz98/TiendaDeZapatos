@@ -8,6 +8,7 @@ import com.example.tiendadezapatos.ViewModels.CompraViewModel
 import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
 import com.example.tiendadezapatos.ViewModels.LoginViewModel
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
+import com.example.tiendadezapatos.Vistas.Admin
 import com.example.tiendadezapatos.Vistas.Favorito
 import com.example.tiendadezapatos.Vistas.Inicio
 import com.example.tiendadezapatos.Vistas.Login
@@ -27,7 +28,13 @@ fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel,favoritoVM: F
             Login(loginVM,navController)
         }
         composable("Inicio"){
-            Inicio(navController,zapatosVM,favoritoVM,compraViewModel)
+            if (loginVM.esAdmin()) {
+                // Si el usuario es un administrador, navegamos a la vista del administrador
+                Admin(navController)
+            } else {
+                // Si no, navegamos a la vista normal
+                Inicio(navController, zapatosVM, favoritoVM, compraViewModel)
+            }
         }
         composable("Favorite"){
             Favorito(navController,favoritoVM,compraViewModel)

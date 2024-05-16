@@ -27,6 +27,8 @@ class LoginViewModel:ViewModel(){
         private set
     var userName by mutableStateOf("")
         private set
+    // Definimos el correo del administrador
+    val correoAdmin = "admin@admin.com"
 
     fun login(onSuccess: () -> Unit){
         viewModelScope.launch {
@@ -114,6 +116,11 @@ class LoginViewModel:ViewModel(){
      */
     fun cerrarSesion(){
         auth.signOut()
+    }
+    // Método para verificar si el usuario es un administrador
+    fun esAdmin(): Boolean {
+        // Comparamos el correo del usuario con el correo del administrador
+        return email == correoAdmin
     }
 
 }
