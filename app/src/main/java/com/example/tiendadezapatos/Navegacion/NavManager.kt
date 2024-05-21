@@ -12,6 +12,7 @@ import com.example.tiendadezapatos.Vistas.Admin
 import com.example.tiendadezapatos.Vistas.Favorito
 import com.example.tiendadezapatos.Vistas.Inicio
 import com.example.tiendadezapatos.Vistas.Login
+import com.example.tiendadezapatos.Vistas.Perfil
 import com.example.tiendadezapatos.Vistas.Register
 import com.example.tiendadezapatos.Vistas.Tienda
 
@@ -25,7 +26,11 @@ fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel,favoritoVM: F
             Register(loginVM,navController)
         }
         composable("Login"){
-            Login(loginVM,navController)
+            if(loginVM.estaLogin()){
+                Perfil(navController,loginVM)
+            }else{
+                Login(loginVM,navController)
+            }
         }
         composable("Inicio"){
             if (loginVM.esAdmin()) {

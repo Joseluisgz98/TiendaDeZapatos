@@ -30,7 +30,7 @@ class LoginViewModel:ViewModel(){
     // Definimos el correo del administrador
     val correoAdmin = "admin@admin.com"
 
-    fun login(onSuccess: () -> Unit){
+    fun login(onSuccess: () -> Unit){//Cambio
         viewModelScope.launch {
             try {
                 // DCS - Utiliza el servicio de autenticación de Firebase para validar al usuario
@@ -40,7 +40,7 @@ class LoginViewModel:ViewModel(){
                         if (task.isSuccessful) {
                             onSuccess()
                         } else {
-                            Log.d("ERROR EN FIREBASE","Usuario y/o contrasena incorrectos")
+                            //Log.d("Usuario y/o contraseña incorrectos")
 
                         }
                     }
@@ -121,6 +121,11 @@ class LoginViewModel:ViewModel(){
     fun esAdmin(): Boolean {
         // Comparamos el correo del usuario con el correo del administrador
         return email == correoAdmin
+    }
+
+    //Metodo para saber si esta logueado (Cambiooooo)
+    fun estaLogin():Boolean{//Cambio
+        return auth.currentUser !=null
     }
 
 }
