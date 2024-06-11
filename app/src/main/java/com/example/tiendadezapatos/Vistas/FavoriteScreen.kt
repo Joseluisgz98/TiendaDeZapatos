@@ -29,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.tiendadezapatos.Componentes.TarjetaCarta
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.CompraViewModel
 import com.example.tiendadezapatos.ViewModels.FavoritoViewModel

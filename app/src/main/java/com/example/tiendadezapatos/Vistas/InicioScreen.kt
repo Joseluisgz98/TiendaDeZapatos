@@ -16,7 +16,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -29,26 +28,13 @@ import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.banner.Banner
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import coil.compose.rememberImagePainter
+import com.example.tiendadezapatos.Componentes.TarjetaCarta
 import com.example.tiendadezapatos.ViewModels.CompraViewModel
 import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
-import com.example.tiendadezapatos.model.ZapatillaModel
 
 @Composable
 fun Inicio(navController: NavController,zapatosVM: ZapatosViewModel,favoritoVM: FavoritoViewModel,compraViewModel: CompraViewModel){
@@ -209,57 +195,4 @@ fun ImageFromUrl(url: String) {
         modifier = Modifier.size(110.dp)
     )
 }
-
-/**
- * Funcion la cual crea cada tarjeta de los zapatos
- * @param zapato pasa el objeto zapato el cual tienes los valores que tendra la tarjeta
- */
-@Composable
-fun TarjetaCarta(zapato: ZapatillaModel,favoritoVM: FavoritoViewModel,compraViewModel: CompraViewModel) {
-    val favorito = remember { mutableStateOf(false) }
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(8.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                ImageFromUrl(url = zapato.imagen)
-                IconButton(onClick = {
-                    favorito.value = !favorito.value
-                    favoritoVM.Guardar(zapato, favorito.value)
-                }) {
-                    Icon(
-                        imageVector = Icons.Filled.Favorite,
-                        contentDescription = "Favorito",
-                        tint = if (favorito.value) Color(0,166,118) else Color.White
-                    )
-                }
-            }
-            Text(text = buildAnnotatedString {
-                append(zapato.nombre)
-                withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline, color = Color(0,166,118))) {
-                    append(" ${zapato.precio} €")
-                }
-            }, style = MaterialTheme.typography.titleLarge)
-            Spacer(modifier = Modifier.height(8.dp))
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = { compraViewModel.comprarZapato(zapato) },modifier = Modifier
-                .fillMaxWidth(),colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))) {
-                Text(text = "Comprar")
-            }
-        }
-    }
-}
-
-
 

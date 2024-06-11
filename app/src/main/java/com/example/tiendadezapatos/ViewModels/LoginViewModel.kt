@@ -41,7 +41,6 @@ class LoginViewModel:ViewModel(){
                             onSuccess()
                         } else {
                             //Log.d("Usuario y/o contraseña incorrectos")
-
                         }
                     }
             } catch (e: Exception){

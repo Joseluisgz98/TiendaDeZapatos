@@ -35,7 +35,7 @@ fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel,favoritoVM: F
         composable("Inicio"){
             if (loginVM.esAdmin()) {
                 // Si el usuario es un administrador, navegamos a la vista del administrador
-                Admin(navController)
+                Admin(navController,zapatosVM)
             } else {
                 // Si no, navegamos a la vista normal
                 Inicio(navController, zapatosVM, favoritoVM, compraViewModel)

@@ -37,6 +37,7 @@ class FavoritoViewModel : ViewModel(){
         } else {
             // Eliminar el zapato de los favoritos
             db.collection("Usuarios").document(email.toString()).collection("favoritos").document(zapato.nombre).delete()
+            devolverZapatosFavoritos()
 
         }
     }

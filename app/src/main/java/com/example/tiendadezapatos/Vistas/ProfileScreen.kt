@@ -22,26 +22,23 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.LoginViewModel
 import com.example.tiendadezapatos.banner.Banner
 
+
 @Composable
 fun Perfil(navController: NavController,loginVM: LoginViewModel){
+    var email = loginVM.email
     Scaffold(
         topBar = {
             Banner(
@@ -70,8 +67,7 @@ fun Perfil(navController: NavController,loginVM: LoginViewModel){
                 }
             }
         },
-
-        ) { innerPadding ->
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding),
@@ -90,29 +86,12 @@ fun Perfil(navController: NavController,loginVM: LoginViewModel){
                 Spacer(modifier = Modifier.width(25.dp))
                 Text(text = "New Life Shoe", style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold))
             }
-            OutlinedTextField(
-                value = loginVM.email,
-                onValueChange = { loginVM.changeEmail(it) },
-                label = { Text(text = "Email") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, end = 30.dp)
-            )
-
-            OutlinedTextField(
-                value = loginVM.password,
-                onValueChange = { loginVM.changePassword(it) },
-                label = { Text(text = "Password") },
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, end = 30.dp)
-            )
+            Text(text = email)
+            Spacer(modifier = Modifier.height(8.dp))
             Button(
                 onClick = {
                     loginVM.cerrarSesion()
+                    navController.navigate("Inicio")
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 30.dp, end = 30.dp),
@@ -120,20 +99,6 @@ fun Perfil(navController: NavController,loginVM: LoginViewModel){
             ) {
                 Text(text = "CERRAR SESION")
             }
-            Text(
-                text = buildAnnotatedString {
-                    append("Regístrate ")
-                    withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline, color = Color(0,166,118,100))) {
-                        append(" Aquí")
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, end = 30.dp)
-                    .clickable { navController.navigate("Register") },
-                textAlign = TextAlign.Center
-            )
-
         }
     }
 }
