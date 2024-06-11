@@ -25,7 +25,7 @@ class CompraViewModel: ViewModel(){
                     val zapatoDocument = documents.documents[0]
                     val zapato = zapatoDocument.toObject(ZapatillaModel::class.java)
                     if (zapato != null && zapato.stock.toInt() > 0) {
-                        val nuevoStock = zapato.stock.toInt() - 1
+                        val nuevoStock = (zapato.stock.toInt() - 1).toString()
                         db.collection("Zapatos").document(zapatoDocument.id).update("stock", nuevoStock)
 
                         val docData = hashMapOf(
@@ -35,7 +35,7 @@ class CompraViewModel: ViewModel(){
                         )
                         db.collection("Usuarios").document(email.toString()).collection("compras").document(zapatoDocument.id).set(docData)
 
-                        val actualizar = zapato.copy(stock = nuevoStock.toString())
+                        val actualizar = zapato.copy(stock = nuevoStock)
                         val datos = zapatosComprado.value?.map { if (it.nombre == zapato.nombre) actualizar else it }
                         zapatosComprado.value = datos
                     } else {
@@ -47,5 +47,6 @@ class CompraViewModel: ViewModel(){
                 Log.w(TAG, "Error obteniendo documentos: ", exception)
             }
     }
+
 
 }
