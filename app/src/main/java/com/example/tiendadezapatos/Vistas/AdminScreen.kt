@@ -30,6 +30,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -45,6 +47,7 @@ import com.example.tiendadezapatos.model.ZapatillaModel
 @Composable
 fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
     val datosZapatos by zapatosVM.datosZapatos.observeAsState(listOf())
+    val mostrarDialogo = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             Banner(
@@ -175,7 +178,7 @@ fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
             }
             LazyVerticalGrid(GridCells.Fixed(2),) {
                 items(datosZapatos) { zapato ->
-                    TarjetaProducto(zapato,zapatosVM)
+                    TarjetaProducto(zapato,zapatosVM,mostrarDialogo)
                 }
             }
         }

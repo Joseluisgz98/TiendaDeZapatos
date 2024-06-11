@@ -11,7 +11,7 @@ import com.google.firebase.firestore.firestore
 
 
 class ZapatosViewModel: ViewModel() {
-    private val db = FirebaseFirestore.getInstance()
+     val db = FirebaseFirestore.getInstance()
     private val zapatoRef = db.collection("Zapatos")//Referencia para acceder a la coleccion zapatos
     val datosZapatos = MutableLiveData<List<ZapatillaModel>>(listOf())
 
@@ -55,6 +55,17 @@ class ZapatosViewModel: ViewModel() {
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error obteniendo documentos: ", exception)
+            }
+    }
+    fun actualizarZapato(nombreZapato: String, nuevoZapato: ZapatillaModel) {
+        db.collection("Zapatos")
+            .whereEqualTo("nombre", nombreZapato)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.documents.isNotEmpty()) {
+                    val zapatoId = documents.documents[0].id
+                    db.collection("Zapatos").document(zapatoId).set(nuevoZapato)
+                }
             }
     }
 
