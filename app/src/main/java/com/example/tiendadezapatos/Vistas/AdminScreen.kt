@@ -21,6 +21,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +40,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.tiendadezapatos.Componentes.MostrarDialogoCrear
 import com.example.tiendadezapatos.Componentes.TarjetaProducto
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
@@ -48,6 +51,7 @@ import com.example.tiendadezapatos.model.ZapatillaModel
 fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
     val datosZapatos by zapatosVM.datosZapatos.observeAsState(listOf())
     val mostrarDialogo = remember { mutableStateOf(false) }
+    val mostrarDialogoCrear = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             Banner(
@@ -180,6 +184,19 @@ fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
                 items(datosZapatos) { zapato ->
                     TarjetaProducto(zapato,zapatosVM,mostrarDialogo)
                 }
+            }
+            Button(
+                onClick = { mostrarDialogoCrear.value = true },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 30.dp, end = 30.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))
+            ) {
+                Text(text = "Crear Zapatilla")
+            }
+
+            if (mostrarDialogoCrear.value) {
+                MostrarDialogoCrear(zapatosVM, mostrarDialogoCrear)
             }
         }
     }

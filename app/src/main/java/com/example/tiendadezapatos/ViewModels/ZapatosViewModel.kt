@@ -68,6 +68,17 @@ class ZapatosViewModel: ViewModel() {
                 }
             }
     }
+    fun agregarZapato(zapato: ZapatillaModel) {
+        db.collection("Zapatos")
+            .add(zapato)
+            .addOnSuccessListener { documentReference ->
+                // El zapato se agregó correctamente
+            }
+            .addOnFailureListener { e ->
+                // Hubo un error al agregar el zapato
+            }
+    }
+
 
 
 
