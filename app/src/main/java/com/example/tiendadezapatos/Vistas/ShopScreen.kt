@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -56,7 +57,7 @@ fun Tienda(navController: NavController, compraVM: CompraViewModel) {
                     .height(150.dp),
                 fotoLogo = painterResource(R.drawable.logotienda),
                 textoLugar = "Carrito",
-                textoMarca = "Marcas"
+                textoMarca = ""
             )
         },
         bottomBar = {
@@ -87,7 +88,8 @@ fun Tienda(navController: NavController, compraVM: CompraViewModel) {
             onClick = { compraVM.terminarCompra() },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))
         ) {
             Text("Terminar compra")
         }
