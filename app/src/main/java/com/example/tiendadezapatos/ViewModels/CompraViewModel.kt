@@ -1,7 +1,9 @@
 package com.example.tiendadezapatos.ViewModels
 
 import android.content.ContentValues.TAG
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tiendadezapatos.model.ZapatillaModel
@@ -9,14 +11,15 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class CompraViewModel: ViewModel(){
     private val db = FirebaseFirestore.getInstance()
     private val auth: FirebaseAuth = Firebase.auth
-    val zapatosComprado = MutableLiveData<List<ZapatillaModel>?>(listOf())
-
+    val zapatosComprado = MutableLiveData<List<ZapatillaModel>>(listOf())
+    val email = auth.currentUser?.email
     fun comprarZapato(nombreZapato: String) {
-        val email = auth.currentUser?.email
         db.collection("Zapatos")
             .whereEqualTo("nombre", nombreZapato)
             .get()
@@ -33,18 +36,60 @@ class CompraViewModel: ViewModel(){
                             "nombre" to zapato.nombre,
                             "precio" to zapato.precio
                         )
-                        db.collection("Usuarios").document(email.toString()).collection("compras").document(zapatoDocument.id).set(docData)
+                        db.collection("Usuarios").document(email.toString()).collection("compras").document().set(docData)
 
                         val actualizar = zapato.copy(stock = nuevoStock)
                         val datos = zapatosComprado.value?.map { if (it.nombre == zapato.nombre) actualizar else it }
-                        zapatosComprado.value = datos
-                    } else {
-                        //futura funcion añadir a la lista de espera
+                        zapatosComprado.value = datos!!
                     }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error obteniendo documentos: ", exception)
+            }
+    }
+    fun obtenerZapatosComprados() {
+        db.collection("Usuarios").document(email.toString()).collection("compras")
+            .get()
+            .addOnSuccessListener { documents ->
+                val zapatosComprados = documents.documents.mapNotNull { it.toObject(ZapatillaModel::class.java) }
+                // Actualiza el valor de zapatosComprado con los zapatos comprados
+                zapatosComprado.value = zapatosComprados
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error obteniendo documentos: ", exception)
+            }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun terminarCompra() {
+        val zapatosComprados = zapatosComprado.value ?: listOf()
+        val costoTotal = zapatosComprados.sumOf { it.precio.toInt() } // Asegúrate de que el precio es un número
+        val horaActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
+
+        val pedidoData = hashMapOf(
+            "zapatos" to zapatosComprados,
+            "costoTotal" to costoTotal,
+            "hora" to horaActual
+        )
+
+        db.collection("Usuarios").document(email.toString()).collection("pedidosRealizados").document().set(pedidoData)
+            .addOnSuccessListener {
+                Log.d(TAG, "Pedido realizado con éxito")
+                // Limpia la lista de zapatos comprados
+                zapatosComprado.value = listOf()
+
+                // Borra todos los documentos en la colección "compras"
+                db.collection("Usuarios").document(email.toString()).collection("compras")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            document.reference.delete()
+                        }
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error realizando pedido: ", exception)
             }
     }
 

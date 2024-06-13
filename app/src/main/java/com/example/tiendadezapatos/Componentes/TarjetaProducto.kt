@@ -1,20 +1,25 @@
 package com.example.tiendadezapatos.Componentes
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -24,11 +29,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -46,38 +53,38 @@ import com.google.firebase.firestore.DocumentReference
  * @param zapato pasa el objeto zapato el cual tienes los valores que tendra la tarjeta
  */
 @Composable
-fun TarjetaProducto(zapato: ZapatillaModel,zapatosVM: ZapatosViewModel,mostrarDialogo: MutableState<Boolean>) {
-
+fun TarjetaProducto(zapato: ZapatillaModel, zapatosVM: ZapatosViewModel, mostrarDialogo: MutableState<Boolean>) {
     Card(
+        shape = RoundedCornerShape(15.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0,166,118,100) // Cambiado a Color(0,166,118,100)
+        ),
         modifier = Modifier
-            .fillMaxWidth()
-            .size(300.dp)
-            .padding(8.dp),
-        shape = RoundedCornerShape(8.dp)
+            .fillMaxWidth() // Ocupa el máximo de la pantalla
+            .padding(16.dp)
+            .border(2.dp, Color.Black, RoundedCornerShape(15.dp)) // Añadido borde negro
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                ImageFromUrl(url = zapato.imagen)
-            }
-            Text(text = zapato.nombre, style = MaterialTheme.typography.titleLarge) // Asumiendo que 'nombre' contiene "Adidas Gazelle"
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IconButton(onClick = { mostrarDialogo.value = true }) {
-                    Image(painter = painterResource(id = R.drawable.editar), contentDescription = "Editar",modifier = Modifier.size(48.dp))
-                }
+            ImageFromUrl(url = zapato.imagen)
+            Spacer(modifier = Modifier.width(16.dp))
+            Column {
+                Text(text = zapato.nombre, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(onClick = { mostrarDialogo.value = true }) {
+                        Image(painter = painterResource(id = R.drawable.editar), contentDescription = "Editar",modifier = Modifier.size(48.dp))
+                    }
 
-                IconButton(onClick = { zapatosVM.eliminarZapatoPorNombre(zapato.nombre)
-                    zapatosVM.mostrarTodos()}) {
-                    Image(painter = painterResource(id = R.drawable.borrar), contentDescription = "Editar",modifier = Modifier.size(48.dp))
+                    IconButton(onClick = { zapatosVM.eliminarZapatoPorNombre(zapato.nombre)
+                        zapatosVM.mostrarTodos()}) {
+                        Image(painter = painterResource(id = R.drawable.borrar), contentDescription = "Borrar",modifier = Modifier.size(48.dp))
+                    }
                 }
             }
         }
@@ -86,6 +93,7 @@ fun TarjetaProducto(zapato: ZapatillaModel,zapatosVM: ZapatosViewModel,mostrarDi
         MostrarDialogoEditar(zapatosVM, zapato.nombre, mostrarDialogo)
     }
 }
+
 /**
  * Funcion la cual crea cada tarjeta de los zapatos
  * @param zapato pasa el objeto zapato el cual tienes los valores que tendra la tarjeta
@@ -136,3 +144,28 @@ fun TarjetaCarta(zapato: ZapatillaModel, favoritoVM: FavoritoViewModel, compraVi
         }
     }
 }
+@Composable
+fun TarjetaProductoComprados(zapato: ZapatillaModel) {
+    Card(
+        shape = RoundedCornerShape(15.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0,166,118,100) // Cambiado a Color(0,166,118,100)
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .border(2.dp, Color.Black, RoundedCornerShape(15.dp))
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            ImageFromUrl(url = zapato.imagen)
+            Spacer(modifier = Modifier.width(16.dp))
+            Column {
+                Text(text = zapato.nombre, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+

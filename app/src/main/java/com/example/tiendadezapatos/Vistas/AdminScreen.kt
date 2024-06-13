@@ -11,24 +11,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -45,7 +35,7 @@ import com.example.tiendadezapatos.Componentes.TarjetaProducto
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.ZapatosViewModel
 import com.example.tiendadezapatos.banner.Banner
-import com.example.tiendadezapatos.model.ZapatillaModel
+
 
 @Composable
 fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
@@ -74,9 +64,13 @@ fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
                         .size(40.dp)
                         .background(color = Color(0, 166, 118, 100)))
                 }
+                IconButton(onClick = { mostrarDialogoCrear.value = true }) {
+                    Icon(painterResource(id = R.drawable.crear), contentDescription = null,modifier = Modifier.size(40.dp))
+                }
                 IconButton(onClick = { navController.navigate("Login") }) {
                     Icon(painterResource(id = R.drawable.login), contentDescription = null,modifier = Modifier.size(40.dp))
                 }
+
             }
         },
 
@@ -180,19 +174,10 @@ fun Admin(navController: NavController, zapatosVM: ZapatosViewModel){
                 }
 
             }
-            LazyVerticalGrid(GridCells.Fixed(2),) {
+            LazyVerticalGrid(GridCells.Fixed(1)) { // Cambiado a 1
                 items(datosZapatos) { zapato ->
-                    TarjetaProducto(zapato,zapatosVM,mostrarDialogo)
+                    TarjetaProducto(zapato, zapatosVM, mostrarDialogo)
                 }
-            }
-            Button(
-                onClick = { mostrarDialogoCrear.value = true },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 30.dp, end = 30.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0,166,118,100))
-            ) {
-                Text(text = "Crear Zapatilla")
             }
 
             if (mostrarDialogoCrear.value) {

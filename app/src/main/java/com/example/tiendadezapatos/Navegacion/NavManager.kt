@@ -45,7 +45,7 @@ fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel,favoritoVM: F
             Favorito(navController,favoritoVM,compraViewModel)
         }
         composable("Shop"){
-            Tienda(navController)
+            Tienda(navController,compraViewModel)
         }
     }
 
