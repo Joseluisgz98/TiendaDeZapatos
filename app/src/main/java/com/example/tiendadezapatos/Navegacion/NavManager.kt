@@ -1,5 +1,7 @@
 package com.example.tiendadezapatos.Navegacion
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +18,7 @@ import com.example.tiendadezapatos.Vistas.Perfil
 import com.example.tiendadezapatos.Vistas.Register
 import com.example.tiendadezapatos.Vistas.Tienda
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel,favoritoVM: FavoritoViewModel,compraViewModel: CompraViewModel){
 
