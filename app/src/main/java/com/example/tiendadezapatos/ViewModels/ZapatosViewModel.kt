@@ -72,10 +72,10 @@ class ZapatosViewModel: ViewModel() {
         db.collection("Zapatos")
             .add(zapato)
             .addOnSuccessListener { documentReference ->
-                // El zapato se agregó correctamente
+                Log.d(TAG, "el zapato fue agregado correctamente")
             }
             .addOnFailureListener { e ->
-                // Hubo un error al agregar el zapato
+                Log.d(TAG, "el zapato no fue agregado correctamente")
             }
     }
 
