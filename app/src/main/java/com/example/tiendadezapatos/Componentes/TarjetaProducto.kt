@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -27,6 +29,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -40,6 +44,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
 import com.example.tiendadezapatos.R
 import com.example.tiendadezapatos.ViewModels.CompraViewModel
 import com.example.tiendadezapatos.ViewModels.FavoritoViewModel
@@ -145,11 +151,11 @@ fun TarjetaCarta(zapato: ZapatillaModel, favoritoVM: FavoritoViewModel, compraVi
     }
 }
 @Composable
-fun TarjetaProductoComprados(zapato: ZapatillaModel) {
+fun TarjetaProductoComprados(zapato: ZapatillaModel, compraVM: CompraViewModel,navController: NavController) {
     Card(
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0,166,118,100) // Cambiado a Color(0,166,118,100)
+            containerColor = Color(0,166,118,100)
         ),
         modifier = Modifier
             .fillMaxWidth()
@@ -165,7 +171,10 @@ fun TarjetaProductoComprados(zapato: ZapatillaModel) {
             Column {
                 Text(text = zapato.nombre, fontWeight = FontWeight.Bold)
             }
+            IconButton(onClick = { compraVM.borrarZapato(zapato.nombre)
+                navController.navigate("Shop")}) {
+                Image(painter = painterResource(id = R.drawable.borrar), contentDescription = "Borrar",modifier = Modifier.size(48.dp))
+            }
         }
     }
 }
-

@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.tiendadezapatos.Componentes.MostrarDialogoConfirmacion
 import com.example.tiendadezapatos.Componentes.TarjetaProducto
 import com.example.tiendadezapatos.Componentes.TarjetaProductoComprados
 import com.example.tiendadezapatos.R
@@ -49,7 +50,7 @@ fun Tienda(navController: NavController, compraVM: CompraViewModel) {
         compraVM.obtenerZapatosComprados()
     }
     val datosZapatos by compraVM.zapatosComprado.observeAsState(listOf())
-
+    val mostrarDialogo = remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
             Banner(
@@ -85,7 +86,7 @@ fun Tienda(navController: NavController, compraVM: CompraViewModel) {
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {Button(
-            onClick = { compraVM.terminarCompra() },
+            onClick = { mostrarDialogo.value = true },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
@@ -95,9 +96,10 @@ fun Tienda(navController: NavController, compraVM: CompraViewModel) {
         }
             LazyColumn {
                 items(datosZapatos) { zapato ->
-                    TarjetaProductoComprados(zapato)
+                    TarjetaProductoComprados(zapato,compraVM,navController)
                 }
             }
+            MostrarDialogoConfirmacion(compraVM, mostrarDialogo)
         }
     }
 }

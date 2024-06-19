@@ -30,7 +30,7 @@ fun NavManager(loginVM: LoginViewModel,zapatosVM: ZapatosViewModel,favoritoVM: F
         }
         composable("Login"){
             if(loginVM.estaLogin()){
-                Perfil(navController,loginVM)
+                Perfil(navController,loginVM,compraViewModel)
             }else{
                 Login(loginVM,navController)
             }
